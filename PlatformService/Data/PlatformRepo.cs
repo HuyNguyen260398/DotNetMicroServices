@@ -7,11 +7,11 @@ namespace PlatformService.Data
 {
     public class PlatformRepo : IPlatformRepo
     {
-        private readonly AppDbContext db;
+        private readonly AppDbContext dbContext;
 
-        public PlatformRepo(AppDbContext db)
+        public PlatformRepo(AppDbContext dbContext)
         {
-            this.db = db;
+            this.dbContext = dbContext;
         }
         public void CreatePlatform(Platform platform)
         {
@@ -20,22 +20,22 @@ namespace PlatformService.Data
                 throw new ArgumentNullException(nameof(platform));
             }
 
-            db.Platforms.Add(platform);
+            dbContext.Platforms.Add(platform);
         }
 
         public IEnumerable<Platform> GetAllPlatforms()
         {
-            return db.Platforms.ToList();
+            return dbContext.Platforms.ToList();
         }
 
         public Platform GetPlatformById(int id)
         {
-            return db.Platforms.FirstOrDefault(p => p.Id == id);
+            return dbContext.Platforms.FirstOrDefault(p => p.Id == id);
         }
 
         public bool SaveChanges()
         {
-            return (db.SaveChanges() >= 0);
+            return (dbContext.SaveChanges() >= 0);
         }
     }
 }
