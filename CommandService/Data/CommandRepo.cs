@@ -52,6 +52,11 @@ namespace CommandService.Data
                 .OrderBy(c => c.Platform.Name);
         }
 
+        public bool IsExternalPlatformExisted(int externalPlatformId)
+        {
+            return dbContext.Platforms.Any(p => p.ExternalId == externalPlatformId);
+        }
+
         public bool IsPlatformExisted(int id)
         {
             return dbContext.Platforms.Any(p => p.Id == id);
