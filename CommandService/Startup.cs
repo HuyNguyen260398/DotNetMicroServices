@@ -1,4 +1,5 @@
 using System;
+using CommandService.AsyncDataSerices;
 using CommandService.Data;
 using CommandService.EventProcessing;
 using Microsoft.AspNetCore.Builder;
@@ -26,6 +27,8 @@ namespace CommandService
             services.AddDbContext<AppDbContext>(opt => opt.UseInMemoryDatabase("InMem"));
             services.AddScoped<ICommandRepo, CommandRepo>();
             services.AddControllers();
+
+            services.AddHostedService<MessageBusSubscriber>();
 
             services.AddSingleton<IEventProcessor, EventProcessor>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
